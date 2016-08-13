@@ -1,5 +1,8 @@
 from flask import Flask, render_template, Response
 import time
+import serial
+
+ser = serial.Serial('/dev/tty.usbmodem14211', 9600)
 
 app = Flask(__name__)
 
@@ -10,10 +13,8 @@ def index():
 @app.route("/stream")
 def stream():
     def eventStream():
-        x = 1
         while True:
-            x += 1
+            x = ser.readline()
             print x
-            time.sleep(2)
             yield "data:{}\n\n".format(x)
     return Response(eventStream(), mimetype="text/event-stream")

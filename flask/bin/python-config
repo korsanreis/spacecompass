@@ -1,4 +1,4 @@
-#!/Users/sami/Documents/flask/flask-minimal/flask/bin/python
+#!/Users/sami/Documents/flask/flask-compass-sse/flask/bin/python
 
 import sys
 import getopt

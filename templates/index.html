@@ -1,18 +1,56 @@
 <html>
+
 <head>
+	<script src="{{ url_for('static', filename='js/compass.js')}}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='less/styles.css')}}">
+
 </head>
 <body>
 
-<h1>Getting server updates</h1>
-<div id="result"></div>
+<h1>Compasss</h1>
+<canvas id="myCanvas" width="600" height="600"></canvas>
 
 <script>
-var targetContainer = document.getElementById("result");
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var radius = 120;
+
+function drawCompass(bearing){
+	
+	ctx.translate(2*radius, 2*radius);
+	ctx.rotate(bearing);	
+	drawMajorTicks();
+	drawMiniTicks();
+	drawCompassHead();
+	drawNumbers(bearing);
+	drawBearing(bearing);
+	drawHeadings(bearing);
+	ctx.rotate(-bearing);	
+	ctx.translate(-2*radius, -2*radius);
+	
+}
+
+var angle_old = 0;
 var eventSource = new EventSource("/stream");
+drawCompass(0,0);
+
 eventSource.onmessage = function(e) {
-    targetContainer.innerHTML = e.data;
+	if(e.data!=angle_old){
+		ctx.clearRect(0,0,600,600);
+		radians = e.data/180*Math.PI;
+		angle_old = e.data;
+		radians_old = angle_old/180*Math.PI;
+		drawCompass(radians);
+	};
 };
+
+
+;
+
 </script>
+
 
 </body>	
 </html>
