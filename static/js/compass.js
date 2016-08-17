@@ -87,6 +87,7 @@ function drawCompassHead(){
 	ctx.moveTo(-5, -(radius+2));
 	ctx.lineTo(5,-(radius+2));
 	ctx.lineTo(0, -(radius + 10));
+	ctx.fillStyle=purple;
 	ctx.fill();
 }
 
