@@ -16,5 +16,27 @@ body,html{
 	height:100%;
 	margin:0px;
 	overflow:hidden;
+	position:absolute;
+	left:0px;
+	top:0px;
+
+	h1, canvas{
+		position:absolute;
+		top:0;
+		left:0;
+		text-align:center;
+		color:@gray-lighter;
+		width:100%;
+	}
+	
+	canvas{
+	    z-index: 10;
+	}
+	
+	h1{
+		margin-top:40px;
+	}
+	
 	
 }
+

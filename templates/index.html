@@ -7,28 +7,35 @@
 </head>
 <body>
 
-<h1>Compasss</h1>
-<canvas id="myCanvas" width="600" height="600"></canvas>
 
+<div id='canvasDiv'>
+	<h1>Compass</h1>
+	<canvas id="myCanvas"></canvas>
+</div>
 <script>
 
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
-var radius = 120;
+ctx.canvas.width = document.getElementById("canvasDiv").offsetWidth
+ctx.canvas.height = document.getElementById("canvasDiv").offsetHeight
+
+min_length = Math.min(ctx.canvas.width, ctx.canvas.height);
+var radius = 140;
 
 function drawCompass(bearing){
 	
-	ctx.translate(2*radius, 2*radius);
-	ctx.rotate(bearing);	
+	ctx.translate(ctx.canvas.width/2, ctx.canvas.height/2);
+	ctx.rotate(bearing);
+    drawMiniTicks();
+	drawCircle();	
 	drawMajorTicks();
-	drawMiniTicks();
 	drawCompassHead();
 	drawNumbers(bearing);
 	drawBearing(bearing);
 	drawHeadings(bearing);
 	ctx.rotate(-bearing);	
-	ctx.translate(-2*radius, -2*radius);
+	ctx.translate(-ctx.canvas.width/2, -ctx.canvas.height/2);
 	
 }
 
@@ -38,7 +45,7 @@ drawCompass(0,0);
 
 eventSource.onmessage = function(e) {
 	if(e.data!=angle_old){
-		ctx.clearRect(0,0,600,600);
+		ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 		radians = e.data/180*Math.PI;
 		angle_old = e.data;
 		radians_old = angle_old/180*Math.PI;

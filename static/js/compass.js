@@ -1,6 +1,15 @@
 var gray_lighter='#eee';
 var blue ='#337ab7';
 var red =  '#d9534f';
+var purple = '#BA55D3';
+
+function drawCircle(){
+	ctx.beginPath();
+	ctx.arc(0, 0, 0.8*radius, 0, 2 * Math.PI, false);
+    ctx.lineWidth = 5;
+	ctx.strokeStyle = gray_lighter;
+	ctx.stroke();
+}
 
 function drawMiniTicks(){
 	for(i=0;i<180;i++){
@@ -43,7 +52,7 @@ function drawNumbers(bearing){
 		ctx.translate(0,-1.2*radius);
 		ctx.rotate(-radians);
 		ctx.rotate(-bearing);
-		ctx.fillStyle = blue;
+		ctx.fillStyle = purple;
 		ctx.fillText(angle.toString(),0,0)
 		ctx.rotate(bearing);
 		ctx.rotate(radians);
@@ -62,14 +71,14 @@ function drawHeadings(bearing){
 		angle = i*90;
 		radians = angle/180*Math.PI;
 		ctx.rotate(radians);
-		ctx.translate(0,-0.7*radius);
+		ctx.translate(0,-0.65*radius);
 		ctx.rotate(-radians);
 		ctx.rotate(-bearing);
 		ctx.fillStyle = gray_lighter;
 		ctx.fillText(headings[i].toString(),0,0)
 		ctx.rotate(bearing);
 		ctx.rotate(radians);
-		ctx.translate(0, 0.7*radius);
+		ctx.translate(0, 0.65*radius);
 		ctx.rotate(-radians);
 	};
 }
@@ -92,4 +101,5 @@ function drawBearing(bearing){
 	ctx.fillText(angle.toString(),0,0)
 	ctx.rotate(bearing);
 }
+
 
