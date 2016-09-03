@@ -5,6 +5,8 @@ var purple = '#BA55D3';
 
 function Compass(){
 	
+	var radius = 140;
+	
 	this.drawCircle = function(){
 		ctx.beginPath();
 		ctx.arc(0, 0, 0.8*radius, 0, 2 * Math.PI, false);
