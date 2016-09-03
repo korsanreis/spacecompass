@@ -1,5 +1,5 @@
-var gray_lighter='#eee';
-var blue ='#337ab7';
+var gray='#eee';
+
 var red =  '#d9534f';
 var purple = '#BA55D3';
 
@@ -7,11 +7,21 @@ function Compass(){
 	
 	var radius = 140;
 	
+	this.colors = {
+		circle:gray,
+		miniTicks:gray,
+		majorTicks:gray,
+		arrowHead:purple,
+		numbers:purple,
+		headings:gray,
+		bearing:red,
+	}
+	
 	this.drawCircle = function(){
 		ctx.beginPath();
 		ctx.arc(0, 0, 0.8*radius, 0, 2 * Math.PI, false);
-	    ctx.lineWidth = 5;
-		ctx.strokeStyle = gray_lighter;
+	  ctx.lineWidth = 5;
+		ctx.strokeStyle = this.colors.circle;
 		ctx.stroke();
 	}
 
@@ -24,7 +34,7 @@ function Compass(){
 			ctx.rotate(radians);
 			ctx.moveTo(0, -0.8*radius);
 			ctx.lineTo(0, -0.89*radius);
-	        ctx.strokeStyle = gray_lighter;
+	    ctx.strokeStyle = this.colors.miniTicks;
 			ctx.stroke();
 			ctx.rotate(-radians);
 		};
@@ -39,7 +49,7 @@ function Compass(){
 			ctx.rotate(radians);
 			ctx.moveTo(0, -0.8*radius);
 			ctx.lineTo(0, -1.0*radius);
-	        ctx.strokeStyle = gray_lighter;
+	    ctx.strokeStyle = this.colors.majorTicks;
 			ctx.stroke();
 			ctx.rotate(-radians);
 		};
@@ -56,7 +66,7 @@ function Compass(){
 			ctx.translate(0,-1.2*radius);
 			ctx.rotate(-radians);
 			ctx.rotate(-bearing);
-			ctx.fillStyle = purple;
+			ctx.fillStyle = this.colors.numbers;
 			ctx.fillText(angle.toString(),0,0)
 			ctx.rotate(bearing);
 			ctx.rotate(radians);
@@ -77,7 +87,7 @@ function Compass(){
 			ctx.translate(0,-0.65*radius);
 			ctx.rotate(-radians);
 			ctx.rotate(-bearing);
-			ctx.fillStyle = gray_lighter;
+			ctx.fillStyle = this.colors.headings;
 			ctx.fillText(headings[i].toString(),0,0)
 			ctx.rotate(bearing);
 			ctx.rotate(radians);
@@ -91,7 +101,7 @@ function Compass(){
 		ctx.moveTo(-5, -(radius+2));
 		ctx.lineTo(5,-(radius+2));
 		ctx.lineTo(0, -(radius + 10));
-		ctx.fillStyle=purple;
+		ctx.fillStyle=this.colors.arrowHead;
 		ctx.fill();
 	}
 
@@ -101,7 +111,7 @@ function Compass(){
 		ctx.textAlign = "center";
 		angle = Math.round(bearing*180/Math.PI);
 		ctx.rotate(-bearing);
-		ctx.fillStyle = red;
+		ctx.fillStyle = this.colors.bearing;
 		ctx.fillText(angle.toString(),0,0)
 		ctx.rotate(bearing);
 	}	
