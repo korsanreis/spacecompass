@@ -3,6 +3,22 @@ var blue ='#337ab7';
 var red =  '#d9534f';
 var purple = '#BA55D3';
 
+function drawCompass(bearing){
+
+	ctx.translate(ctx.canvas.width/2, ctx.canvas.height/2);
+	ctx.rotate(bearing);
+  drawMiniTicks();
+	drawCircle();	
+	drawMajorTicks();
+	drawCompassHead();
+	drawNumbers(bearing);
+	drawBearing(bearing);
+	drawHeadings(bearing);
+	ctx.rotate(-bearing);	
+	ctx.translate(-ctx.canvas.width/2, -ctx.canvas.height/2);
+	
+};
+
 function drawCircle(){
 	ctx.beginPath();
 	ctx.arc(0, 0, 0.8*radius, 0, 2 * Math.PI, false);
@@ -24,7 +40,7 @@ function drawMiniTicks(){
 		ctx.stroke();
 		ctx.rotate(-radians);
 	};
-}
+};
 
 function drawMajorTicks(){
 	for(i=0;i<12;i++){
@@ -82,6 +98,7 @@ function drawHeadings(bearing){
 		ctx.rotate(-radians);
 	};
 }
+
 function drawCompassHead(){
 	ctx.beginPath();
 	ctx.moveTo(-5, -(radius+2));

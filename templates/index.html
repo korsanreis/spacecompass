@@ -2,62 +2,56 @@
 
 <head>
 	<script src="{{ url_for('static', filename='js/compass.js')}}"></script>
-	<link rel="stylesheet" href="{{ url_for('static', filename='less/styles.css')}}">
+	
+	
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='less/styles.css')}}">
+	
+
+
+  <script>
+  $( function() {
+    $( "#slider" ).slider({
+		  slide: function( event, ui ){
+				var value = $( "#slider" ).slider( "value" );
+				degrees = 360*value/100;
+				radians = degrees/180*Math.PI;
+				ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+				drawCompass(radians);
+		  }
+		});
+  } );
+	
+	var value = $( "#slider" ).slider( "value" );
+	console.log(value);
+  </script>
+	
 </head>
 <body>
 
-
+<h1>Set the bearing of your space ship!</h1>
 <div id='canvasDiv'>
-	<h1>Compass</h1>
-	<canvas id="myCanvas"></canvas>
+	<canvas id="myCanvas"></canvas>	
 </div>
-<script>
 
+<div id="slider">
+	<p id="end">360 &#176</p>
+	<p id="start">0 &#176</p>
+</div>
+
+<script>
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
-
 ctx.canvas.width = document.getElementById("canvasDiv").offsetWidth
 ctx.canvas.height = document.getElementById("canvasDiv").offsetHeight
 
-min_length = Math.min(ctx.canvas.width, ctx.canvas.height);
 var radius = 140;
 
-function drawCompass(bearing){
-	
-	ctx.translate(ctx.canvas.width/2, ctx.canvas.height/2);
-	ctx.rotate(bearing);
-    drawMiniTicks();
-	drawCircle();	
-	drawMajorTicks();
-	drawCompassHead();
-	drawNumbers(bearing);
-	drawBearing(bearing);
-	drawHeadings(bearing);
-	ctx.rotate(-bearing);	
-	ctx.translate(-ctx.canvas.width/2, -ctx.canvas.height/2);
-	
-}
-
-var angle_old = 0;
-var eventSource = new EventSource("/stream");
 drawCompass(0,0);
-
-eventSource.onmessage = function(e) {
-	if(e.data!=angle_old){
-		ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
-		radians = e.data/180*Math.PI;
-		angle_old = e.data;
-		radians_old = angle_old/180*Math.PI;
-		drawCompass(radians);
-	};
-};
-
-
-;
-
 </script>
-
 
 </body>	
 </html>

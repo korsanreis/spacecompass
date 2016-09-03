@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 y = 0
 
-def printit():
+def generateNumbers():
     global y
     threading.Timer(1, printit).start()
     x = random.randrange(-5,6,1)
@@ -25,7 +25,7 @@ try:
     print "Arduino connected."
 except serial.serialutil.SerialException:
         print "Arduino not connected. Generating random numbers."
-        printit()
+        #generateNumbers()
         
 @app.route('/')
 def index():
