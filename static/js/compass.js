@@ -19,6 +19,15 @@ function drawCompass(bearing){
 	
 };
 
+
+var compassUpdate = function( event, ui){
+	var value = $( "#slider" ).slider( "value" );
+	degrees = 360*value/100;
+	radians = degrees/180*Math.PI;
+	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+	drawCompass(radians);
+}
+
 function drawCircle(){
 	ctx.beginPath();
 	ctx.arc(0, 0, 0.8*radius, 0, 2 * Math.PI, false);
@@ -82,7 +91,6 @@ function drawHeadings(bearing){
 	ctx.textBaseline = "middle";
 	ctx.textAlign = "center";
 	headings = ['N', 'E', 'S', 'W']
-	console.log(headings)
 	for(i=0;i<4;i++){
 		angle = i*90;
 		radians = angle/180*Math.PI;
@@ -113,7 +121,6 @@ function drawBearing(bearing){
 	ctx.textBaseline = "middle";
 	ctx.textAlign = "center";
 	angle = Math.round(bearing*180/Math.PI);
-	console.log("angle is: " + angle);
 	ctx.rotate(-bearing);
 	ctx.fillStyle = red;
 	ctx.fillText(angle.toString(),0,0)
