@@ -7,3 +7,5 @@ Initially built the compass to be display the output of an IMU sensor connected 
 
 See /static/js/copmass.js for the script used to build the compass
 
+Demo page: http://spacecompass.herokuapp.com/
+
